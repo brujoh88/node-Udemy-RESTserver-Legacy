@@ -1,4 +1,4 @@
-const {response} = require('express')
+const {response, request} = require('express')
 const userGet = (req,res=response)=>{
     res.status(200).json({                
         msg: "get API - controllador"
@@ -11,9 +11,11 @@ const userPut =  (req,res=response)=>{
     })
 }
 
-const userPost = (req,res=response)=>{
+const userPost = (req = request,res=response)=>{
+    const {nombre,edad} = req.body
     res.status(201).json({                
-        msg: "post API - controller"
+        msg: "post API - controller",
+        nombre,edad
     })
 }
 
