@@ -17,7 +17,30 @@ class Server {
 
     routes(){
         this.app.get('/api', (req,res)=>{
-            res.send('Hello world')
+            res.status(403).json({                
+                msg: "get API"
+            })
+        })
+        this.app.put('/api', (req,res)=>{
+            res.status(403).json({                
+                msg: "put API"
+            })
+        })
+        this.app.post('/api', (req,res)=>{
+            res.status(403).json({                
+                msg: "post API"
+            })
+        })
+        this.app.delete('/api', (req,res)=>{
+            res.status(403).json({                
+                msg: "delete API"
+            })
+        })
+
+        this.app.patch('/api', (req,res)=>{
+            res.status(403).json({                
+                msg: "patch API"
+            })
         })
     }
 
