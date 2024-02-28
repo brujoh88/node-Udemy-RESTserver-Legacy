@@ -1,13 +1,22 @@
 const {response, request} = require('express')
 const userGet = (req,res=response)=>{
+
+    const {nombre = "No name",apikey} = req.query
+
     res.status(200).json({                
-        msg: "get API - controllador"
+        msg: "get API - controllador",
+        nombre,
+        apikey
     })
 }
 
 const userPut =  (req,res=response)=>{
+
+    const id = req.params.id
+
     res.status(403).json({                
-        msg: "put API"
+        msg: "put API",
+        id
     })
 }
 
