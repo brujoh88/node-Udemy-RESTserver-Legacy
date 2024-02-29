@@ -1,10 +1,8 @@
 const {response, request} = require('express')
 const Usuario = require('../models/usuarios')
 const bcrypt = require('bcryptjs')
-const { validationResult } = require('express-validator')
 
 const userGet = (req,res=response)=>{
-
     const {nombre = "No name",apikey} = req.query
 
     res.status(200).json({                
@@ -24,14 +22,7 @@ const userPut =  (req,res=response)=>{
     })
 }
 
-const userPost = async (req = request,res=response)=>{
-
-    const errors = validationResult(req)
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json(errors)        
-    }
-    
+const userPost = async (req = request,res=response)=>{       
     const {nombre,correo, password, rol} = req.body
     const usuario = new Usuario({nombre,correo, password, rol})   
     
