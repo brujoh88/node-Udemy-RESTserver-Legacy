@@ -26,8 +26,7 @@ const userPut = async (req,res=response)=>{
     const usuario = await Usuario.findByIdAndUpdate(id, resto)
 
     res.status(403).json({                
-        msg: "put API",
-        id
+        usuario
     })
 }
 
