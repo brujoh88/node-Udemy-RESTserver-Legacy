@@ -12,9 +12,18 @@ const userGet = (req,res=response)=>{
     })
 }
 
-const userPut =  (req,res=response)=>{
+const userPut = async (req,res=response)=>{
 
-    const id = req.params.id
+    const {id} = req.params
+    const {password, google, correo, ...resto} = req.body
+    
+    if (password) {
+         //Encriptar la contraseña
+        const salt = bcrypt.genSaltSync()
+        resto.password = bcrypt.hashSync( password, salt)                
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, resto)
 
     res.status(403).json({                
         msg: "put API",
