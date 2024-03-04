@@ -6,13 +6,27 @@ const userGet = async(req,res=response)=>{
 
 const {limite = 5,desde= 0} = req.query
 //TODO validar que limite y desde sean numeros, sino revienta app
-    const usurios = await Usuario.find()
+const query = {estado:true}
+
+    //? Promesas que se resuelven una por vez
+    /*
+    const usurios = await Usuario.find(query)
     .skip(desde)
     .limit(limite)
 
+    const total = await Usuario.countDocuments(query) */
+
+    
+    //? Promesas que se resuelven todas a la vez
+    const [total, usuarios] = await Promise.all([
+        Usuario.countDocuments(query),
+        Usuario.find(query)
+        .skip(desde)
+        .limit(limite)])
 
     res.status(200).json({                
-        usurios
+        total,
+        usuarios
     })
 }
 
