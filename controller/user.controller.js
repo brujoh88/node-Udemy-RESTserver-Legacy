@@ -2,13 +2,17 @@ const {response, request} = require('express')
 const Usuario = require('../models/usuarios')
 const bcrypt = require('bcryptjs')
 
-const userGet = (req,res=response)=>{
-    const {nombre = "No name",apikey} = req.query
+const userGet = async(req,res=response)=>{
+
+const {limite = 5,desde= 0} = req.query
+//TODO validar que limite y desde sean numeros, sino revienta app
+    const usurios = await Usuario.find()
+    .skip(desde)
+    .limit(limite)
+
 
     res.status(200).json({                
-        msg: "get API - controllador",
-        nombre,
-        apikey
+        usurios
     })
 }
 
@@ -25,9 +29,7 @@ const userPut = async (req,res=response)=>{
 
     const usuario = await Usuario.findByIdAndUpdate(id, resto)
 
-    res.status(403).json({                
-        usuario
-    })
+    res.json( usuario )
 }
 
 const userPost = async (req = request,res=response)=>{       
