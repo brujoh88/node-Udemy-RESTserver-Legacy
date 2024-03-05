@@ -18,6 +18,18 @@ const esAdmindRole = (req =request, res = response, next)=>{
     next()
 }
 
+const rolesValidos = (...roles)=>{
+    return (req=request, res=response,next)=>{
+        if (!roles.includes(req.usuario.rol)) {
+            return res.status(401).json({
+                msg: `El servicio requiere uno de estos roles: ${roles}`
+            })
+        }
+        next()
+    }
+}
+
 module.exports = {
-    esAdmindRole
+    esAdmindRole,
+    rolesValidos
 }
