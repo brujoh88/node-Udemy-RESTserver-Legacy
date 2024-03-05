@@ -16,7 +16,7 @@ const query = {estado:true}
 
     const total = await Usuario.countDocuments(query) */
 
-    
+
     //? Promesas que se resuelven todas a la vez
     const [total, usuarios] = await Promise.all([
         Usuario.countDocuments(query),
@@ -61,9 +61,11 @@ const userPost = async (req = request,res=response)=>{
     })
 }
 
-const userDelete =  (req,res = response)=>{
+const userDelete =  async (req,res = response)=>{
+    const {id} = req.params
+    const usuario = await Usuario.findByIdAndUpdate(id,{ estado : false })
     res.status(403).json({                
-        msg: "delete API - controller"
+        usuario
     })
 }
 const userPatch =  (req,res=response)=>{
