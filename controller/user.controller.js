@@ -64,8 +64,10 @@ const userPost = async (req = request,res=response)=>{
 const userDelete =  async (req,res = response)=>{
     const {id} = req.params
     const usuario = await Usuario.findByIdAndUpdate(id,{ estado : false })
+    const usuarioAuth = req.usuario
     res.status(403).json({                
-        usuario
+        usuario,
+        usuarioAuth
     })
 }
 const userPatch =  (req,res=response)=>{
