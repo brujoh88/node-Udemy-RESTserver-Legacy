@@ -1,4 +1,4 @@
-const { response } = require('express')
+const { request, response } = require('express')
 const Usuario = require('../models/usuarios')
 const bcryptjs = require('bcryptjs')
 const { generarJWT } = require('../helpers/generarJWT')
@@ -41,6 +41,16 @@ const login = async (req, res = response)=>{
         })
     }    
 }
+
+const googleSingIn = async (req = request, res = response )=>{
+    const {id_token} = req.body
+    res.json({
+        msg:'Todo corrrecto',
+        id_token
+    })
+}
+
 module.exports = {
-    login
+    login,
+    googleSingIn
 }
