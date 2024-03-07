@@ -1,7 +1,7 @@
 const Categoria = require('./caterogia')
 const Role = require('./role')
 const Server = require('./server')
-const Usuario = require('./caterogia')
+const Usuario = require('./usuario')
 
 
 module.exports = {
