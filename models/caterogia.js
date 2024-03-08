@@ -18,4 +18,10 @@ const CaterogiaShema = Schema({
     }
 })
 
+CaterogiaShema.methods.toJSON = function(){
+    const {__v,estado,...data} = this.toObject()    
+    return data
+
+}
+
 module.exports = model('Categoria',CaterogiaShema)

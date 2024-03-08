@@ -65,13 +65,13 @@ const userDelete =  async (req,res = response)=>{
     const {id} = req.params
     const usuario = await Usuario.findByIdAndUpdate(id,{ estado : false })
     const usuarioAuth = req.usuario
-    res.status(403).json({                
+    res.status(200).json({                
         usuario,
         usuarioAuth
     })
 }
 const userPatch =  (req,res=response)=>{
-    res.status(403).json({                
+    res.status(200).json({                
         msg: "patch API - controller"
     })
 }
