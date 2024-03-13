@@ -8,6 +8,7 @@ class Server {
     this.port = process.env.PORT    
     this.path = {
         auth:'/api/auth',
+        buscar: '/api/buscar',
         categorias:'/api/categorias',
         productos:'/api/productos',
         usuarios:'/api/usuarios',
@@ -39,9 +40,10 @@ class Server {
 
     routes(){
         this.app.use(this.path.auth,require('../routes/auth.routes'))
-        this.app.use(this.path.usuarios,require('../routes/user.routes'))
-        this.app.use(this.path.productos,require('../routes/productos.routes'))
+        this.app.use(this.path.buscar,require('../routes/buscar.routes'))
         this.app.use(this.path.categorias,require('../routes/cateorigas.routes'))
+        this.app.use(this.path.productos,require('../routes/productos.routes'))
+        this.app.use(this.path.usuarios,require('../routes/user.routes'))
     }
 
     listen(){
