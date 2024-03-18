@@ -1,14 +1,11 @@
 const { response, request } = require("express");
 const { subirArchivo } = require('../helpers');
 const { Usuario, Producto } = require("../models");
+const path = require('path')
+const fs = require('fs')
 
 
-const cargarArchivo = async(req = request, res = response)=>{  
-
-  if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-    res.status(400).json({msg:'No hay archivo en la peticion'});
-    return;
-  }
+const cargarArchivo = async(req = request, res = response)=>{    
   try {
     //const nombre = await subirArchivo  (req.files, ['txt','md'], 'textos')
     const nombre = await subirArchivo  (req.files, undefined, 'img')
@@ -24,7 +21,7 @@ const cargarArchivo = async(req = request, res = response)=>{
   
 }
 
-const actualizarImagen  = async (req = request, res = response)=>{
+const actualizarImagen  = async (req = request, res = response)=>{  
   const {id,coleccion} = req.params
   let modelo
   switch (coleccion) {
@@ -44,6 +41,17 @@ const actualizarImagen  = async (req = request, res = response)=>{
   
     default:
       return res.status(500).json({msg:'Se me olvido validar esto'})
+  }
+
+  try {
+    if (modelo.img) {
+      const pathImagen = path.join(__dirname,'../uploads', coleccion, modelo.img)
+      if (fs.existsSync(pathImagen)) {
+        fs.unlinkSync(pathImagen)        
+      }
+    }
+  } catch (error) {
+    
   }
 
   const nombre = await subirArchivo  (req.files, undefined, coleccion)
