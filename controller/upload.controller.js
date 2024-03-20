@@ -120,7 +120,10 @@ const actualizarImagenCloudinary  = async (req = request, res = response)=>{
 
   try {
     if (modelo.img) {
-      
+      const nombreArr = modelo.img.split('/')
+      const nombre = nombreArr[ nombreArr.length - 1]
+      const [ public_id ] = nombre.split('.')
+      await cloudinary.uploader.destroy(public_id)      
     }
   } catch (error) {
     
